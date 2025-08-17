@@ -13,6 +13,11 @@ import { StudentsPage } from './pages/students/StudentsPage';
 import { AcademicPage } from './pages/academic/AcademicPage';
 import { MessagesPage } from './pages/messages/MessagesPage';
 import { CalendarPage } from './pages/calendar/CalendarPage';
+import { AttendancePage } from './pages/attendance/AttendancePage';
+import { ReportsPage } from './pages/reports/ReportsPage';
+import { SettingsPage } from './pages/settings/SettingsPage';
+import { ProfilePage } from './pages/profile/ProfilePage';
+import { ChildrenPage } from './pages/children/ChildrenPage';
 import { useAuth } from './context/AuthContext';
 
 function DashboardRouter() {
@@ -96,11 +101,46 @@ function App() {
                 />
                 
                 {/* Placeholder routes for other modules */}
-                <Route path="attendance" element={<div className="p-6"><h1 className="text-2xl font-bold">Módulo de Asistencia</h1><p className="text-gray-600 mt-2">En desarrollo...</p></div>} />
-                <Route path="reports" element={<div className="p-6"><h1 className="text-2xl font-bold">Módulo de Boletines</h1><p className="text-gray-600 mt-2">En desarrollo...</p></div>} />
-                <Route path="settings" element={<div className="p-6"><h1 className="text-2xl font-bold">Configuración</h1><p className="text-gray-600 mt-2">En desarrollo...</p></div>} />
-                <Route path="profile" element={<div className="p-6"><h1 className="text-2xl font-bold">Mi Perfil</h1><p className="text-gray-600 mt-2">En desarrollo...</p></div>} />
-                <Route path="children" element={<div className="p-6"><h1 className="text-2xl font-bold">Mis Hijos</h1><p className="text-gray-600 mt-2">En desarrollo...</p></div>} />
+                <Route 
+                  path="attendance" 
+                  element={
+                    <ProtectedRoute allowedRoles={['admin', 'teacher']}>
+                      <AttendancePage />
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="reports" 
+                  element={
+                    <ProtectedRoute allowedRoles={['admin', 'teacher', 'parent', 'student']}>
+                      <ReportsPage />
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="settings" 
+                  element={
+                    <ProtectedRoute allowedRoles={['admin']}>
+                      <SettingsPage />
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="profile" 
+                  element={
+                    <ProtectedRoute allowedRoles={['student', 'parent', 'teacher', 'admin']}>
+                      <ProfilePage />
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="children" 
+                  element={
+                    <ProtectedRoute allowedRoles={['parent']}>
+                      <ChildrenPage />
+                    </ProtectedRoute>
+                  } 
+                />
               </Route>
               
               <Route path="/" element={<Navigate to="/dashboard" replace />} />
