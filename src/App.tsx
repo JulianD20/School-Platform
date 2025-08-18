@@ -10,8 +10,12 @@ import { TeacherDashboard } from './pages/dashboard/TeacherDashboard';
 import { ParentDashboard } from './pages/dashboard/ParentDashboard';
 import { StudentDashboard } from './pages/dashboard/StudentDashboard';
 import { StudentsPage } from './pages/students/StudentsPage';
-import { AcademicPage } from './pages/academic/AcademicPage';
-import { MessagesPage } from './pages/messages/MessagesPage';
+import { TeacherAcademicPage } from './pages/academic/TeacherAcademicPage';
+import { StudentAcademicPage } from './pages/academic/StudentAcademicPage';
+import { ParentAcademicPage } from './pages/academic/ParentAcademicPage';
+import { TeacherMessagesPage } from './pages/messages/TeacherMessagesPage';
+import { ParentMessagesPage } from './pages/messages/ParentMessagesPage';
+import { StudentMessagesPage } from './pages/messages/StudentMessagesPage';
 import { CalendarPage } from './pages/calendar/CalendarPage';
 import { AttendancePage } from './pages/attendance/AttendancePage';
 import { ReportsPage } from './pages/reports/ReportsPage';
@@ -74,8 +78,24 @@ function App() {
                 <Route 
                   path="academic" 
                   element={
-                    <ProtectedRoute allowedRoles={['admin', 'teacher', 'student', 'parent']}>
-                      <AcademicPage />
+                    <ProtectedRoute allowedRoles={['teacher']}>
+                      <TeacherAcademicPage />
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="academic" 
+                  element={
+                    <ProtectedRoute allowedRoles={['student']}>
+                      <StudentAcademicPage />
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="academic" 
+                  element={
+                    <ProtectedRoute allowedRoles={['parent']}>
+                      <ParentAcademicPage />
                     </ProtectedRoute>
                   } 
                 />
@@ -84,8 +104,24 @@ function App() {
                 <Route 
                   path="messages" 
                   element={
-                    <ProtectedRoute allowedRoles={['admin', 'teacher', 'parent', 'student']}>
-                      <MessagesPage />
+                    <ProtectedRoute allowedRoles={['teacher']}>
+                      <TeacherMessagesPage />
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="messages" 
+                  element={
+                    <ProtectedRoute allowedRoles={['parent']}>
+                      <ParentMessagesPage />
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="messages" 
+                  element={
+                    <ProtectedRoute allowedRoles={['student']}>
+                      <StudentMessagesPage />
                     </ProtectedRoute>
                   } 
                 />
